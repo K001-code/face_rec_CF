@@ -2,21 +2,24 @@
 import cv2, face_recognition, sys
 
 def main():
-  """
-  This program utalizes the openCV/cv2 open Python library to capture, recognize student's face via a webcam.
-  Once a student's face is detected in the trained data, we can automatically update a spreadsheet that contains all the students' attendance status.
-  """
-  ret, frame = webCam()
-  if not ret:
+    """
+    This program utalizes the openCV/cv2 open Python library to capture, recognize student's face via a webcam.
+    Once a student's face is detected in the trained data, we can automatically update a spreadsheet that contains all the students' attendance status.
+    """
+    ret, frame = webCam()
+    if not ret:
     sys.exit("ERROR: Something went wrong while trying to capture your webcam.")
-  drawRect(frame)
-  
-  return 0
+    drawRect(frame)
+    
+    return 0
 
 
 def webCam():
-  cap = cv2.VideoCapture(0)
-  return cap.read()
+    cap = cv2.VideoCapture(0)
+    return cap.read()
+
+def drawRect(frame):
+    #your code here
 
 if __name__ == "__main__":
-  main()
+    main()

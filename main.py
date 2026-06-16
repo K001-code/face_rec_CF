@@ -1,5 +1,5 @@
 #This is the main branch where the final version of the code will be merged into after revision
-import cv2, face_recognition, sys
+import cv2, sys
 
 def main():
     """
@@ -8,7 +8,7 @@ def main():
     """
     ret, frame = webCam()
     if not ret:
-    sys.exit("ERROR: Something went wrong while trying to capture your webcam.")
+        sys.exit("ERROR: Something went wrong while trying to capture your webcam.")
     drawRect(frame)
     
     return 0
@@ -20,6 +20,7 @@ def webCam():
 
 def drawRect(frame):
     #your code here
+    return
 
 if __name__ == "__main__":
     main()

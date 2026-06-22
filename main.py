@@ -10,7 +10,7 @@ def main():
     if not ret:
         sys.exit("ERROR: Something went wrong while trying to capture your webcam.")
     drawRect(frame)
-    
+   
     return 0
 
 
@@ -24,3 +24,8 @@ def drawRect(frame):
 
 if __name__ == "__main__":
     main()
+
+#jhfihjhd
+
+
+

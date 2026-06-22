@@ -1,7 +1,7 @@
-#This is the main branch where the final version of the code will be merged into after revision
+ #This is the main branch where the final version of the code will be merged into after revision
 import cv2, sys
 
-def main():
+def cdmain():
     """
     This program utalizes the openCV/cv2 open Python library to capture, recognize student's face via a webcam.
     Once a student's face is detected in the trained data, we can automatically update a spreadsheet that contains all the students' attendance status.
@@ -24,3 +24,4 @@ def drawRect(frame):
 
 if __name__ == "__main__":
     main()
+#fndjssjfbdsjfdsf

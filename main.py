@@ -21,6 +21,8 @@ def main():
         # print ai
     print("hi ai")
     #hgfds
+    # kbjjksjkjnamkswjsks
+
     # drawRect(frame)
     
     return 0

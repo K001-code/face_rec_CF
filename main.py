@@ -20,6 +20,7 @@ def main():
         # haaha nh jea ai
         # print ai
     print("hi ai")
+    #hgfds
     # drawRect(frame)
     
     return 0

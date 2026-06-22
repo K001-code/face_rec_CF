@@ -17,7 +17,7 @@ def main():
             break
     cap.release()
     cv2.destroyAllWindows()
-        
+    
     # drawRect(frame)
     
     return 0
@@ -29,3 +29,6 @@ def drawRect(frame):
 
 if __name__ == "__main__":
     main()
+
+
+#ababababbabab

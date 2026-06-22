@@ -17,7 +17,8 @@ def main():
             break
     cap.release()
     cv2.destroyAllWindows()
-    #addfghjkjhgvghjmjhgvadf
+    
+    print("testing")
     # drawRect(frame)
     
     return 0

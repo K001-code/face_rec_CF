@@ -1,50 +1,36 @@
-#This is the main branch where the final version of the code will be merged into after revision
-import cv2, sys
+import cv2 as cv
+import sys 
 
-def main():
-    """
-    This program utalizes the openCV/cv2 open Python library to capture, recognize student's face via a webcam.
-    Once a student's face is detected in the trained data, we can automatically update a spreadsheet that contains all the students' attendance status.
-    """
-    cap = cv2.VideoCapture(0)
+def main() :
+    c = cv.VideoCapture(0)
+
+    def draw(f):
+        gray = cv.cvtColor(f, cv.COLOR_BGR2GRAY)
+
+        face = cv.CascadeClassifier(
+            cv.data.haarcascades + "haarcascade_frontalface_default.xml"
+        )
+
+        faces = face.detectMultiScale(gray, 1.1, 5)
+
+        for (x, y, w, h) in faces:
+            cv.rectangle(f, (x, y), (x+w, y+h), (0, 0, 255), 2)
+
     while True:
-        ret, frame = cap.read()
+        r, f = c.read()
 
-        if not ret:
-            sys.exit("ERROR: Something went wrong while trying to capture your webcam.")
-
-        drawRect(frame)   # <-- put it here
-
-        cv2.imshow("Camera", frame)
-
-        if cv2.waitKey(1) == ord("q"):
+        if not r:
             break
 
-    cap.release()
-    cv2.destroyAllWindows()
-    
-    
-    return 0
+        draw(f)
 
+        cv.imshow("Webcam", f)
 
-def drawRect(frame):
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        if cv.waitKey(1) & 0xFF == ord('q'):
+            break
 
-    face_cascade = cv2.CascadeClassifier(
-        cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
-    )
-
-    faces = face_cascade.detectMultiScale(
-        gray,
-        scaleFactor=1.1,
-        minNeighbors=5
-    )
-
-    for (x, y, w, h) in faces:
-        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-
-    return
+    c.release()
+    cv.destroyAllWindows()
 
 if __name__ == "__main__":
     main()
-

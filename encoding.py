@@ -3,7 +3,7 @@ import os
 import pickle
 
 # Path to the folder containing sub-folders of images
-dataset_path = r"D:\Documents\face_rec_CF\images"
+dataset_path = r"images"
 known_encodings = []
 known_names = []
 

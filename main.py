@@ -101,8 +101,3 @@ def log_attendance(name):
         print(f"Successfully sent {name} to Google Sheets!")
     except Exception as e:
         print(f"Error sending to sheet: {e}")
-# TEMPORARY TEST BLOCK
-# This will run as soon as you execute 'python main.py' or wait for understand the flw of team 1 first
-if __name__ == "__main__":
-    print("Testing connection from main.py...")
-    log_attendance("System_Test_User")

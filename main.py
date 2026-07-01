@@ -9,13 +9,16 @@ from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 
 # 1. SETUP GOOGLE SHEETS CONNECTION ( team 2)
+# 1. SETUP GOOGLE SHEETS CONNECTION
 creds = ServiceAccountCredentials.from_json_keyfile_name(
-    "credentials.json", 
+    "credentials.json",
     ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 )
 client = gspread.authorize(creds)
-sheet = client.open("AttendanceSheet").sheet1
 
+#thisis the id that that will put the name to the sheet
+SHEET_ID = "1RVUlJPBKztsl4wZRQHPA0mCs76JnKxbQQQwnTCvAe8I"
+sheet = client.open_by_key(SHEET_ID).sheet1
 # 2. ATTENDANCE LOGIC & MEMORY ( make sure name doch in the file )
 TEAM_MEMBERS = ["bofang", "bota", "khin", "mana", "meng", "phanthorng", "phivath", "rany", "tharith"]
 logged_names = set() 

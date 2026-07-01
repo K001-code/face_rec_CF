@@ -5,6 +5,7 @@ import pickle
 import face_recognition
 import numpy as np
 import gspread
+import time
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 
@@ -101,3 +102,31 @@ def log_attendance(name):
         print(f"Successfully sent {name} to Google Sheets!")
     except Exception as e:
         print(f"Error sending to sheet: {e}")
+# track time, dak timing
+# This dictionary store the time when a person was first detected
+detection_timers = {}
+already_signed_in = [] # it prevents from  dak name 2 dong
+REQUIRED_SECONDS = 2
+# i imported the librabry time
+def process_attendance(name_detected):
+    current_time = time.time()
+    #If this person is new, start their timer
+    if name_detected not in detection_timers:
+        detection_timers[name_detected] = current_time
+        print(f"Detecting {name_detected}... please hold.")
+        return
+    #print ng ot dak kor ban dea
+
+    # merl tha if they have been held for the required time =2 seconds nv
+    elapsed = current_time - detection_timers[name_detected]
+    #elapsed ng morg lers
+    if elapsed >= REQUIRED_SECONDS:
+        # ber = 2 hx dak jol sheets
+        sheet.append_row([name_detected, time.strftime("%H:%M:%S")])
+        print(f"SUCCESS: {name_detected} added to attendance.")
+        
+        already_signed_in.append(name_detected)
+        if name_detected in detection_timers:
+            del detection_timers[name_detected]
+        #this dont help much but it helps clean the memory, 
+        # Example bota and it will clean the memory that stores name bota

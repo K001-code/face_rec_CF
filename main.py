@@ -20,7 +20,7 @@ client = gspread.authorize(creds)
 SHEET_ID = "1RVUlJPBKztsl4wZRQHPA0mCs76JnKxbQQQwnTCvAe8I"
 sheet = client.open_by_key(SHEET_ID).sheet1
 # 2. ATTENDANCE LOGIC & MEMORY ( make sure name doch in the file )
-TEAM_MEMBERS = ["bofang", "bota", "khin", "mana", "meng", "phanthorng", "phivath", "rany", "tharith"]
+TEAM_MEMBERS = ["bofang", "bota", "khin", "mana", "meng", "phanthorng", "phivath", "rany", "tharith", "sreynai"]
 logged_names = set() 
 # if unkknow send to google cloud
 def log_attendance(name):

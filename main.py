@@ -110,23 +110,33 @@ REQUIRED_SECONDS = 2
 # i imported the librabry time
 def process_attendance(name_detected):
     current_time = time.time()
-    #If this person is new, start their timer
+    
+    # 1. Skip instantly if already signed in (No lag)
+    if name_detected in already_signed_in:
+        return 
+
+    # 2. Start timer if new
     if name_detected not in detection_timers:
         detection_timers[name_detected] = current_time
-        print(f"Detecting {name_detected}... please hold.")
+        print(f" Started countdown for {name_detected}...")
         return
-    #print ng ot dak kor ban dea
 
-    # merl tha if they have been held for the required time =2 seconds nv
+    # 3. Calculate exact elapsed seconds
     elapsed = current_time - detection_timers[name_detected]
-    #elapsed ng morg lers
+    
+    print(f" Scanning {name_detected}: {int(elapsed)} / {REQUIRED_SECONDS} seconds passed...")
+    
     if elapsed >= REQUIRED_SECONDS:
-        # ber = 2 hx dak jol sheets
-        sheet.append_row([name_detected, time.strftime("%H:%M:%S")])
-        print(f"SUCCESS: {name_detected} added to attendance.")
+        print(f" 3 Seconds reached! Sending {name_detected} to Google Sheet...")
         
+        try:
+            # Send to sheet
+            sheet.append_row([name_detected, time.strftime("%H:%M:%S")])
+            print(f" SUCCESS: {name_detected} added!")
+        except Exception as e:
+            print(f" Google Sheet Error: {e}")
+    
         already_signed_in.append(name_detected)
+        
         if name_detected in detection_timers:
             del detection_timers[name_detected]
-        #this dont help much but it helps clean the memory, 
-        # Example bota and it will clean the memory that stores name bota

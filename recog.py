@@ -14,11 +14,11 @@ def main():
     
     # ADJUST STRICTNESS HERE: Lower value = stricter matching (fewer false positives)
     # 0.6 is default. 0.45 is strict. 0.40 is extremely strict.
-    STRICT_TOLERANCE = 0.40
+    STRICT_TOLERANCE = 0.35
 
     # 1. Load the known face encodings and names from the pickle file
     try:
-        with open("face_encodings.pickle", "rb") as f:
+        with open("new_face_encodings.pickle", "rb") as f:
             known_data = pickle.load(f)
         known_encodings = known_data["encodings"]
         known_names = known_data["names"]

@@ -2,8 +2,13 @@ import face_recognition
 import os
 import pickle
 
+"""
+dataset_path could be set to "frames" or "images"
+"images" contain less images so it can encode faster but less accurate,
+whereas "frames" has 2000+ images after running vid2pic.py thus encoding it will take longer but more accurate.
+"""
 # Path to the folder containing sub-folders of images
-dataset_path = r"images"
+dataset_path = r"frames"
 known_encodings = []
 known_names = []
 

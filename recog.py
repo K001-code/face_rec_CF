@@ -18,7 +18,7 @@ def main():
 
     # 1. Load the known face encodings and names from the pickle file
     try:
-        with open("new_face_encodings.pickle", "rb") as f:
+        with open("face_encodings.pickle", "rb") as f:
             known_data = pickle.load(f)
         known_encodings = known_data["encodings"]
         known_names = known_data["names"]

@@ -1,8 +1,16 @@
 import cv2
 import os
+import sys
 
+#display available video files in the folder "videos"
 print(os.listdir(r"videos"))
+if not os.listdir(r"videos"):
+    sys.exit("the folder 'videos' does not contain any .mp4 files")
+
+#make new folder frames, if it already exist then pass
+os.makedirs(r"frames", exist_ok=True)
 names = []
+
 for file in os.listdir(r"videos"):
     if file.endswith(".mp4"):
         names.append(file[:-4])

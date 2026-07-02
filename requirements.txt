@@ -1,1 +1,6 @@
 opencv-python
+dlib
+cmake
+face_recognition
+numpy
+oauth2client

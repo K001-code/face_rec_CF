@@ -25,16 +25,46 @@ TEAM_MEMBERS = ["bofang", "bota", "khin", "mana", "meng", "phanthorng", "phivath
 logged_names = set() 
 # if unkknow send to google cloud
 def log_attendance(name):
+    # Check if we already sent this name. If yes, stop here!
     if name in logged_names:
         return 
 
+    # If not, send to Google Sheets
     try:
         now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         sheet.append_row([name, now])
-        print(f"SUCCESS: Recorded {name} to Google Sheet!")
+        print(f"Successfully sent {name} to Google Sheets!")
+        
+        # Add to the logged_names list so we don't send it again
         logged_names.add(name)
+        
     except Exception as e:
-        print(f"ERROR: Could not log to sheet: {e}")
+        print(f"Error sending to sheet: {e}")
+
+# track time, dak timing
+# This dictionary store the time when a person was first detected
+detection_timers = {}
+already_signed_in = [] # it prevents from  dak name 2 dong
+REQUIRED_SECONDS = 2
+# I imported the librabry time
+def process_attendance(name_detected):
+    current_time = time.time()
+    # 1. Skip instantly if already signed in (No lag)
+    if name_detected in already_signed_in:
+        return 
+    # 2. Start timer if new
+    if name_detected not in detection_timers:
+        detection_timers[name_detected] = current_time
+        print(f" Started countdown for {name_detected}...")
+        return
+    # 3. Calculate exact elapsed seconds
+    elapsed = current_time - detection_timers[name_detected]
+    print(f" Scanning {name_detected}: {int(elapsed)} / {REQUIRED_SECONDS} seconds passed...")
+    
+    if elapsed >= REQUIRED_SECONDS:
+        print(f" 3 Seconds reached! Sending {name_detected} to Google Sheet...")
+        already_signed_in.append(name_detected)
+        del detection_timers[name_detected]
 
 #3. FACE RECOGNITION MAIN LOOP ( team 1)
 def main():
@@ -78,9 +108,17 @@ def main():
                 if shortest_distance <= STRICT_TOLERANCE:
                     name = known_names[best_match_index]
                     color = (0, 255, 0) 
-                    
                     if name in TEAM_MEMBERS:
-                        log_attendance(name)
+                        #  Start the timer 
+                        process_attendance(name)
+            
+                        # Only log IF the timer is finished 
+                        if name in already_signed_in:
+                            log_attendance(name)
+
+                   # if name in TEAM_MEMBERS: 
+                   #   log_attendance(name)( i changed these 2 lines to the 6lines on the top )
+                   
             
             cv2.rectangle(frame, (left, top), (right, bottom), color, 2)
             cv2.putText(frame, name, (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.8, color, 2, cv2.LINE_AA)
@@ -95,48 +133,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-def log_attendance(name):
-    try:
-        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        sheet.append_row([name, now])
-        print(f"Successfully sent {name} to Google Sheets!")
-    except Exception as e:
-        print(f"Error sending to sheet: {e}")
-# track time, dak timing
-# This dictionary store the time when a person was first detected
-detection_timers = {}
-already_signed_in = [] # it prevents from  dak name 2 dong
-REQUIRED_SECONDS = 2
-# i imported the librabry time
-def process_attendance(name_detected):
-    current_time = time.time()
-    
-    # 1. Skip instantly if already signed in (No lag)
-    if name_detected in already_signed_in:
-        return 
-
-    # 2. Start timer if new
-    if name_detected not in detection_timers:
-        detection_timers[name_detected] = current_time
-        print(f" Started countdown for {name_detected}...")
-        return
-
-    # 3. Calculate exact elapsed seconds
-    elapsed = current_time - detection_timers[name_detected]
-    
-    print(f" Scanning {name_detected}: {int(elapsed)} / {REQUIRED_SECONDS} seconds passed...")
-    
-    if elapsed >= REQUIRED_SECONDS:
-        print(f" 3 Seconds reached! Sending {name_detected} to Google Sheet...")
-        
-        try:
-            # Send to sheet
-            sheet.append_row([name_detected, time.strftime("%H:%M:%S")])
-            print(f" SUCCESS: {name_detected} added!")
-        except Exception as e:
-            print(f" Google Sheet Error: {e}")
-    
-        already_signed_in.append(name_detected)
-        
-        if name_detected in detection_timers:
-            del detection_timers[name_detected]

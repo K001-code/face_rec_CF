@@ -6,6 +6,7 @@ The Automatic Student Attendance Tracking System with Facial Recognition is a pr
 - __Automated Tracking__: After student identified, automatically updates their attendance in Google Sheets  
 - __Language__: Python
 - __Libraries__: opencv-python, dlib, cmake, face_recognition, numpy, oauth2client
+- __credentials.json__: must have a `credentials.json` file in the src directory in order to access the key. The file will be sent privately to approved personals only.
 
 
 ## Instruction
@@ -21,3 +22,16 @@ Run the following code snippets in terminal:
    `python encoding.py`  
 ### 4. After encoding, run the following program for live facial recognition and attendance update  
    `python main.py`
+
+## Group Members
+- Tam Khin
+- Hun Marina
+- To Bota
+- Roeun Somana
+- Phorn Siphanthorng
+- Cheav Chetharith
+- Reth Chanrany
+- Un Sreynai
+- Hour Bofang
+- Sean Chamroeunpivath
+- Ely Meng

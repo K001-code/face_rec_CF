@@ -33,5 +33,5 @@ Run the following code snippets in terminal:
 - Reth Chanrany
 - Un Sreynai
 - Hour Bofang
-- Sean Chamroeunpivath
-- Ely Meng
+- Sean Chamroeunphivath
+- Ey LyMeng
